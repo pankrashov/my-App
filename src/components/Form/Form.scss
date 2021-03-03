@@ -1,0 +1,34 @@
+.form {
+  @include flex(column, nowrap, center, center);
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  background-color: #ece7e7;
+
+  form {
+    @include flex(column, nowrap, flex-start, center);
+    padding: 20px;
+  }
+
+  .input {
+    margin: 10px 0;
+    width: 200px;
+    height: 30px;
+    padding-left: 10px;
+  }
+
+  .label {
+    @include flex(column, nowrap, flex-start, center);
+
+    display: inline-flex;
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  .error {
+    color: red;
+  }
+  .group {
+    @include flex(row, wrap, space-around, center);
+    width: 100%;
+  }
+}

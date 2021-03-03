@@ -1,0 +1,62 @@
+@mixin response($size) {
+  @media only screen and (max-width: $size + 'px') {
+    @content;
+  }
+}
+@mixin min-response($size) {
+  @media only screen and (min-width: $size + 'px') {
+    @content;
+  }
+}
+@mixin orientation($Lsize, $Psize) {
+  @media screen and (orientation: landscape) and (max-width: $Lsize + 'px'),
+    screen and (orientation: portrait) and (max-width: $Psize + 'px') {
+    @content;
+  }
+}
+@mixin response-range($min, $max) {
+  @media only screen and (min-width: $min + 'px') and (max-width: $max + 'px') {
+    @content;
+  }
+}
+@mixin desktop-hover() {
+  @media only screen and (min-width: 1025px) {
+    &:hover {
+      @content;
+    }
+  }
+}
+@mixin desktop-properties() {
+  @media only screen and (min-width: 1025px) {
+    @content;
+  }
+}
+@mixin flex($row: row, $wrap: wrap, $justify: center, $align: center) {
+  display: flex;
+  flex-flow: $row $wrap;
+  justify-content: $justify;
+  align-items: $align;
+}
+@mixin font($font: false, $size: false, $color: false, $ls: false, $lh: false, $weight: false) {
+  @if ($font == 'open') {
+    font-family: 'Open Sans', sans-serif;
+  }
+  @else if ($font == 'lato') {
+    font-family: 'Lato', sans-serif;
+  }
+  @if $size {
+    font-size: $size + rem;
+  }
+  @if $color {
+    color: $color;
+  }
+  @if $ls {
+    letter-spacing: $ls + em;
+  }
+  @if $lh {
+    line-height: $lh + em;
+  }
+  @if $weight {
+    font-weight: $weight;
+  }
+}

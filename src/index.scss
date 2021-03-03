@@ -1,0 +1,9 @@
+@import 'shared/scss/variables.scss';
+@import 'shared/scss/mixins.scss';
+@import 'shared/scss/reset.scss';
+@import 'shared/scss/common.scss';
+@import 'shared/scss/extends.scss';
+
+@import './../src/components/Main/Main.scss';
+@import './../src/components/Table/Table.scss';
+@import './../src/components/Form/Form.scss';
