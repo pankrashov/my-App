@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 import { Table } from "../Table/Table"
-import React, {useState} from 'react';
-import AddItemForm from "../Form/Form";
+import React, {useState, useEffect} from 'react';
+import {AddItemForm} from "../Form/Form";
+import { addItem } from '../../redux/dataReducer';
 import Modal from 'react-modal';
 
 const customStyles = {
@@ -18,29 +19,38 @@ const customStyles = {
   }
 };
 
+export const Context = React.createContext();
+
 const Main = (props) => {
+  const [edistat, setState] = useState([]);
   const [editMode, setEditMode] = useState(false);
-  const onEditMode = () => {
-    setEditMode(true);
-  }
+
+  const toogleEditMode = () => setEditMode(prev => !prev)
+
+  useEffect(() => {
+    setState(props.tablesData)
+  }, [props.tablesData])
+
   return (
-    <div className="main">
-      {!editMode && (
+    <Context.Provider value={editMode}>
+      <div className="main">
+        {!editMode && (
         <div className="container">
-          <Table
-          dataTable={props.tablesData}
-          />
-          <button onClick={onEditMode} className="btn">Add new item</button>
+            <Table
+            dataTable={edistat}
+            />
+            <button onClick={toogleEditMode} className="btn">Add new item</button>
         </div>
-      )}
-      <Modal
-      ariaHideApp={false}
-      isOpen={editMode}
-      style={customStyles}
-    >
-      <AddItemForm setEditMode={setEditMode}/>
-    </Modal>
-    </div>
+        )}
+        <Modal
+        ariaHideApp={false}
+        isOpen={editMode}
+        style={customStyles}
+      >
+        <AddItemForm addItem={props.addItem} toggle={toogleEditMode}/>
+      </Modal>
+      </div>
+    </Context.Provider>
   );
 }
 const mapStateToProps = (state) => {
@@ -48,6 +58,7 @@ const mapStateToProps = (state) => {
     tablesData: state.dataDable.tablesData,
   };
 };
-export default connect(mapStateToProps)(
+
+export default connect(mapStateToProps, {addItem})(
   Main
 );

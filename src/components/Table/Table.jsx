@@ -1,8 +1,14 @@
 
-const Table = (dataTable) => {
-  const dat = dataTable.dataTable;
+import React, {useState, useEffect} from 'react';
 
-  const Row = dat.map((user, i) => {
+const Table = ({dataTable}) => {
+  const [editState, setState] = useState([]);
+
+  useEffect(() => {
+    setState(dataTable)
+  }, [dataTable]);
+
+  const Row = editState.map((user, i) => {
     return (
       <div className="table__row" key={i}>
         <div className="table__col">
@@ -37,6 +43,7 @@ const Table = (dataTable) => {
           phone
         </div>
       </div>
+
       {Row}
     </div>
   );
